@@ -2,7 +2,18 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from copy import deepcopy
-
+import argparse
+def setup_hyperparameters():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--learning_rate', type=float, default=0.0001)
+    parser.add_argument('--batch_size', type=int, default=256)
+    parser.add_argument('--num_epochs', type=int, default=100)
+    parser.add_argument('--optimizer', type=str, default='adam')
+    parser.add_argument('--num_classes', type=str, default=1)
+    parser.add_argument('--init_channels', type=str, default=1)
+    args = parser.parse_args()
+    globals().update(vars(args))  
+setup_hyperparameters()
 k1, p1 = 3, 1
 k2, p2 = 5, 2
 k3, p3 = 9, 4
