@@ -40,8 +40,7 @@ python test.py
 ```
 ### 📜Result
 After the code is run, the network will output the predicted value of each sample and determine whether the sample is atrial fibrillation. Finally, the code will analyze and summarize the diagnostic results for all samples in the './Data' directory (corresponding to the sequence-level diagnostic strategy in the paper) and the diagnostic results for all subjects (corresponding to the set-level diagnostic strategy in the paper).
-The results of this code are：
-![Result](Result\resut.png)
+
 
 
 ## ❤️ Acknowledgments
