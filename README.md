@@ -30,8 +30,6 @@ pip install -r requirements.txt
 ## 🚀Teacher-Student neural network
 ### 📜 Data
 The data required for testing is in the 'Data' folder in the current directory, where the 'Radar_data' in each '.mat' file is the input to our network.
-### 📜 Model
-We provide the trained Teacher-Student neural network in ./Teacher_Student_neural_network/models. 
 ### 📜Test
 To run the test code, just run the following command:
 ```shell
