@@ -1,5 +1,8 @@
-torch==1.9.0+cu111
+torch
 numpy
-sklearn
+scikit-learn
 scipy
 pandas
+wfdb
+ipykernel
+openpyxl
