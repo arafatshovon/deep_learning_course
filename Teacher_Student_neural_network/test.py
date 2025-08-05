@@ -11,8 +11,8 @@ from sklearn.metrics import confusion_matrix
 import scipy.io as sio
 import torch
 from torch.utils.data import DataLoader
-from tqdm import tqdm
-import STUDNN
+from tqdm import tqdm #type: ignore
+import STUDNN #type:ignore
 from dataset import RadarDataset
 from sklearn.metrics import f1_score, accuracy_score 
 import pkg_resources
