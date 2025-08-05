@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEADNN Architecture</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+        
+        .title {
+            text-align: center;
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .architecture {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .input-section {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            padding: 15px 30px;
+            border-radius: 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1em;
+            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.3);
+        }
+        
+        .block-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .basic-block {
+            background: white;
+            border: 3px solid #3498db;
+            border-radius: 20px;
+            padding: 20px;
+            min-width: 800px;
+            box-shadow: 0 10px 30px rgba(52, 152, 219, 0.2);
+            position: relative;
+        }
+        
+        .block-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            text-align: center;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            margin: -10px auto 15px auto;
+            display: inline-block;
+        }
+        
+        .operation-path {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border: 2px dashed #e74c3c;
+            padding: 15px;
+            border-radius: 15px;
+            background: rgba(231, 76, 60, 0.05);
+            margin-bottom: 15px;
+        }
+        
+        .shortcut-path {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            border: 2px dashed #27ae60;
+            padding: 10px;
+            border-radius: 15px;
+            background: rgba(39, 174, 96, 0.05);
+            margin-bottom: 15px;
+        }
+        
+        .branch-conv {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        
+        .conv-branch {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 0.9em;
+            text-align: center;
+            min-width: 80px;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .layer {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 15px;
+            text-align: center;
+            font-weight: 500;
+            box-shadow: 0 6px 20px rgba(78, 205, 196, 0.3);
+            margin: 5px;
+        }
+        
+        .se-layer {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 15px;
+            text-align: center;
+            font-weight: 500;
+            box-shadow: 0 6px 20px rgba(240, 147, 251, 0.3);
+            margin: 5px;
+        }
+        
+        .shortcut-layer {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            color: #2c3e50;
+            padding: 8px 16px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(168, 237, 234, 0.4);
+        }
+        
+        .addition {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffecd2, #fcb69f);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5em;
+            color: #2c3e50;
+            box-shadow: 0 6px 20px rgba(252, 182, 159, 0.4);
+            margin: 10px auto;
+        }
+        
+        .final-layers {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .final-layer {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        
+        .arrow {
+            font-size: 2em;
+            color: #3498db;
+            margin: 10px 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .channel-info {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-top: 5px;
+        }
+        
+        .relu-activation {
+            background: linear-gradient(135deg, #ff9a9e, #fecfef);
+            color: #2c3e50;
+            padding: 8px 20px;
+            border-radius: 15px;
+            text-align: center;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(255, 154, 158, 0.3);
+            margin: 10px auto;
+            display: inline-block;
+        }
+        
+        .parameters {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: rgba(52, 152, 219, 0.1);
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 0.8em;
+            color: #2c3e50;
+        }
+        
+        .legend {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .legend-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-size: 1.2em;
+        }
+        
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">TEADNN Architecture</div>
+        
+        <div class="architecture">
+            <!-- Input -->
+            <div class="input-section">
+                Input: 1D Signal (init_channels=1)
+            </div>
+            
+            <div class="arrow">↓</div>
+            
+            <!-- 8 Basic Blocks -->
+            <div class="block-container">
+                <div class="basic-block">
+                    <div class="parameters">Block 0: 1→64 channels</div>
+                    <div class="block-title">BasicBlock1D (stride=2)</div>
+                    
+                    <div class="operation-path">
+                        <div style="text-align: center; font-weight: bold; color: #e74c3c; margin-bottom: 10px;">Operation Path</div>
+                        
+                        <div class="branch-conv">
+                            <div class="conv-branch">Conv1D<br>k=3, p=1</div>
+                            <div class="conv-branch">Conv1D<br>k=5, p=2</div>
+                            <div class="conv-branch">Conv1D<br>k=9, p=4</div>
+                            <div class="conv-branch">Conv1D<br>k=17, p=8</div>
+                        </div>
+                        <div style="text-align: center; font-size: 0.9em; color: #666;">Concatenate (dim=1)</div>
+                        
+                        <div class="layer">BatchNorm1d</div>
+                        <div class="layer">ReLU</div>
+                        <div class="layer">Dropout (0.2)</div>
+                        
+                        <div class="branch-conv">
+                            <div class="conv-branch">Conv1D<br>k=3, p=1</div>
+                            <div class="conv-branch">Conv1D<br>k=5, p=2</div>
+                            <div class="conv-branch">Conv1D<br>k=9, p=4</div>
+                            <div class="conv-branch">Conv1D<br>k=17, p=8</div>
+                        </div>
+                        <div style="text-align: center; font-size: 0.9em; color: #666;">Concatenate (dim=1)</div>
+                        
+                        <div class="layer">BatchNorm1d</div>
+                        <div class="se-layer">SELayer1D (Squeeze & Excitation)</div>
+                    </div>
+                    
+                    <div class="shortcut-path">
+                        <div style="font-weight: bold; color: #27ae60;">Shortcut Path:</div>
+                        <div class="shortcut-layer">MaxPool1d (stride=2)</div>
+                        <div class="shortcut-layer">Conv1d (1×1)</div>
+                        <div class="shortcut-layer">BatchNorm1d</div>
+                    </div>
+                    
+                    <div class="addition">+</div>
+                    <div class="relu-activation">ReLU Activation</div>
+                </div>
+                
+                <div class="arrow">↓</div>
+                
+                <!-- Show pattern for remaining blocks -->
+                <div style="text-align: center; color: #7f8c8d; font-style: italic; margin: 20px 0;">
+                    Similar BasicBlock1D structures for blocks 1-7<br>
+                    Channels: 64→80→96→112→128→144→160→176<br>
+                    Each with growth_rate=16
+                </div>
+                
+                <div class="arrow">↓</div>
+            </div>
+            
+            <!-- Final layers -->
+            <div class="final-layers">
+                <div class="final-layer">
+                    Global Average Pooling 1D
+                    <div class="channel-info">Output: (batch_size, 176)</div>
+                </div>
+                
+                <div class="arrow">↓</div>
+                
+                <!-- <div style="background: rgba(255, 193, 7, 0.1); padding: 15px; border-radius: 15px; border: 2px dashed #ffc107;">
+                    <div style="text-align: center; font-weight: bold; color: #856404; margin-bottom: 10px;">
+                        Optional Modification (place=5)
+                    </div>
+                    <div style="text-align: center; color: #856404;">
+                        my_change(out1, change_type, index)<br>
+                        - permute: Random permutation of specified indices<br>
+                        - freeze: Replace indices with mean values
+                    </div>
+                </div> -->
+                
+                <!-- <div class="arrow">↓</div> -->
+                
+                <div class="final-layer">
+                    Fully Connected Layer
+                    <div class="channel-info">176 → num_classes (default: 1)</div>
+                </div>
+                
+                <div class="arrow">↓</div>
+                
+                <div class="input-section">
+                    Output: Predictions
+                </div>
+            </div>
+        </div>
+        
+        <!-- Legend -->
+        <div class="legend">
+            <div class="legend-title">Architecture Components</div>
+            <div class="legend-grid">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: linear-gradient(135deg, #ff6b6b, #ee5a52);"></div>
+                    <span>BranchConv1D (Multi-kernel)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: linear-gradient(135deg, #4ecdc4, #44a08d);"></div>
+                    <span>Standard Layers</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: linear-gradient(135deg, #f093fb, #f5576c);"></div>
+                    <span>SE Layer (Attention)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: linear-gradient(135deg, #a8edea, #fed6e3);"></div>
+                    <span>Shortcut Connection</span>
+                </div>
+            </div>
+            
+            <div style="margin-top: 15px; font-size: 0.9em; color: #6c757d;">
+                <strong>Key Features:</strong> Multi-branch convolutions with different kernel sizes (3,5,9,17), 
+                Squeeze-and-Excitation attention, ResNet-style skip connections, and optional feature modification at the penultimate layer.
+            </div>
+        </div>
+        
+        <!-- Download button -->
+        <div style="text-align: center; margin-top: 30px;">
+            <button onclick="downloadImage()" style="
+                background: linear-gradient(135deg, #667eea, #764ba2);
+                color: white;
+                border: none;
+                padding: 15px 30px;
+                border-radius: 25px;
+                font-size: 1.1em;
+                font-weight: bold;
+                cursor: pointer;
+                box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+                transition: transform 0.2s ease;
+            " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                Download as PNG
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        function downloadImage() {
+            const container = document.querySelector('.container');
+            const button = document.querySelector('button');
+            
+            // Hide the button temporarily
+            button.style.display = 'none';
+            
+            html2canvas(container, {
+                scale: 2,
+                backgroundColor: '#ffffff',
+                useCORS: true,
+                logging: false
+            }).then(canvas => {
+                // Show the button again
+                button.style.display = 'block';
+                
+                // Create download link
+                const link = document.createElement('a');
+                link.download = 'TEADNN_Architecture.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            }).catch(error => {
+                button.style.display = 'block';
+                console.error('Error generating image:', error);
+                alert('Error generating image. Please try again.');
+            });
+        }
+    </script>
+</body>
+</html>
