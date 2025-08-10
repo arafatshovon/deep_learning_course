@@ -7,3 +7,4 @@ wfdb
 ipykernel
 openpyxl
 pytorch-lightning
+seaborn
